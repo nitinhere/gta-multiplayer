@@ -3,22 +3,24 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
-// Serve static files from the "public" folder
+// Serve files from the public folder
 app.use(express.static("public"));
 
-// Serve the main HTML page at root
+// Route: Home page
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-app.get("/test", (req, res) => res.send("✅ Hello, Render is working!"));
+// Test route (for Render debug)
+app.get("/test", (req, res) => {
+  res.send("✅ Render is working!");
+});
 
-
-// Multiplayer logic here
+// Multiplayer logic
 const players = {};
 
 io.on("connection", (socket) => {
-  console.log("Player connected:", socket.id);
+  console.log("New connection:", socket.id);
   players[socket.id] = { x: 100, y: 100, bullets: [] };
 
   socket.emit("init", { id: socket.id, players });
@@ -45,7 +47,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start server
+// Start server on port 3000
 http.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
