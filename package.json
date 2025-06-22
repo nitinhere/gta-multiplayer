@@ -1,0 +1,26 @@
+{
+  "name": "gta-style-multiplayer",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+  "start": "node server.js"
+},
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitinhere/gta-multiplayer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nitinhere/gta-multiplayer/issues"
+  },
+  "homepage": "https://github.com/nitinhere/gta-multiplayer#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}
