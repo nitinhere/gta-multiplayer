@@ -1,11 +1,17 @@
-
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
+// Serve static files from the "public" folder
 app.use(express.static("public"));
 
+// Serve the main HTML page at root
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+// Multiplayer logic here
 const players = {};
 
 io.on("connection", (socket) => {
@@ -13,7 +19,6 @@ io.on("connection", (socket) => {
   players[socket.id] = { x: 100, y: 100, bullets: [] };
 
   socket.emit("init", { id: socket.id, players });
-
   socket.broadcast.emit("newPlayer", { id: socket.id, x: 100, y: 100 });
 
   socket.on("move", (data) => {
@@ -37,6 +42,7 @@ io.on("connection", (socket) => {
   });
 });
 
+// Start server
 http.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
